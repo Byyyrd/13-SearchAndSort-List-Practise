@@ -263,6 +263,7 @@ public class List<ContentType> {
             }
             else{
                 last = getPrevious(last);
+                last.setNextNode(null);
             }
             current = current.getNextNode();
         }
