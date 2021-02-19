@@ -233,13 +233,21 @@ public class List<ContentType> {
      *            die am Ende anzuhaengende Liste vom Typ List<ContentType>
      */
     public void concat(List<ContentType> pList) {
-        if(this != pList && pList != null){
-            pList.toFirst();
-            while(pList.hasAccess()){
-                this.append(pList.current.contentObject);
-                pList.next();
+        if (pList != this && pList != null && !pList.isEmpty()) { // Nichts tun,
+            // wenn pList und this identisch, pList leer oder nicht existent.
+
+            if (this.isEmpty()) { // Fall: An leere Liste anfuegen.
+                this.first = pList.first;
+                this.last = pList.last;
+            } else { // Fall: An nicht-leere Liste anfuegen.
+                this.last.setNextNode(pList.first);
+                this.last = pList.last;
             }
-            pList = new List<ContentType>();
+
+            // Liste pList loeschen.
+            pList.first = null;
+            pList.last = null;
+            pList.current = null;
         }
     }
 
