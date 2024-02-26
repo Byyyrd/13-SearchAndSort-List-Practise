@@ -13,6 +13,10 @@ public class MainController {
         for(int i = 0; i < amount; i++){
             allPersons.append(createPerson());
         }
+        showList();
+        sortList();
+        showList();
+
     }
 
     private Person createPerson(){
@@ -41,7 +45,14 @@ public class MainController {
      */
     public String searchList(String name){
         String output = "Nicht gefunden.";
-        //TODO 01: Schreibe einen Suchalgorithmus
+        //COMPLETE 01: Schreibe einen Suchalgorithmus
+        allPersons.toFirst();
+        while (allPersons.hasAccess()){
+            if(allPersons.getContent().getName().equals(name)){
+                return allPersons.getContent().getName() + " " + allPersons.getContent().getBirthdate();
+            }
+            allPersons.next();
+        }
         return output;
     }
 
@@ -50,7 +61,47 @@ public class MainController {
      * Gib an, ob deine Umsetzung stabil ist und ob sie in-place ist.
      */
     public void sortList(){
-        //TODO 02: Schreibe einen Sortieralgorithmus
+        //COMPLETE 02: Schreibe einen
+        allPersons.toFirst();
+        while (allPersons.hasAccess()){
+            allPersons.toFirst();
+            while(allPersons.hasAccess()){
+                Person previous = allPersons.getContent();
+                String name1 = allPersons.getContent().getName();
+                allPersons.next();
+                if(allPersons.hasAccess()){
+                    Person current = allPersons.getContent();
+                    String name2 = allPersons.getContent().getName();
+                    if(name1.compareTo(name2) > 0){
+                        allPersons.remove();
+                        allPersons.toFirst();
+                        while (allPersons.hasAccess() && allPersons.getContent() != previous){
+                            allPersons.next();
+                        }
+                        allPersons.remove();
+                        if(allPersons.hasAccess()){
+                            allPersons.insert(current);
+                            allPersons.insert(previous);
+                        }else {
+                            allPersons.append(current);
+                            allPersons.append(previous);
+                        }
+                        allPersons.toFirst();
+                        while (allPersons.hasAccess() && allPersons.getContent() != previous){
+                            allPersons.next();
+                        }
+                    }else{
+                        while (allPersons.hasAccess() && allPersons.getContent() != current){
+                            allPersons.next();
+                        }
+                    }
+                }
+
+            }
+        }
+
+
+
     }
 
 
