@@ -13,10 +13,6 @@ public class MainController {
         for(int i = 0; i < amount; i++){
             allPersons.append(createPerson());
         }
-        showList();
-        sortList();
-        showList();
-
     }
 
     private Person createPerson(){
@@ -62,8 +58,13 @@ public class MainController {
      */
     public void sortList(){
         //COMPLETE 02: Schreibe einen
+        int length = 0;
         allPersons.toFirst();
-        while (allPersons.hasAccess()){
+        while(allPersons.hasAccess()){
+            length++;
+            allPersons.next();
+        }
+        for (int i = 0; i < length; i++) {
             allPersons.toFirst();
             while(allPersons.hasAccess()){
                 Person previous = allPersons.getContent();
@@ -90,13 +91,8 @@ public class MainController {
                         while (allPersons.hasAccess() && allPersons.getContent() != previous){
                             allPersons.next();
                         }
-                    }else{
-                        while (allPersons.hasAccess() && allPersons.getContent() != current){
-                            allPersons.next();
-                        }
                     }
                 }
-
             }
         }
 
